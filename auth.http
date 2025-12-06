@@ -2,9 +2,10 @@ POST http://localhost:3001/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "superdev3@gmail.com",
+  "email": "test11@gmail.com",
   "password": "password123",
-  "name": "superdev"
+  "name": "test9",
+  "role": "user"
 }
 
 ###
@@ -12,15 +13,30 @@ POST http://localhost:3001/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "superdev3@gmail.com",
+  "email": "test11@gmail.com",
   "password": "password123"
 }
 
 ###
 ///me
 GET http://localhost:3001/api/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MmVmNDg1NDFlMmQ0ZDNjZmJmODhiNCIsImlhdCI6MTc2NDY4NjE4OCwiZXhwIjoxNzY3Mjc4MTg4fQ.4c3m6jH7WzEDjXvJTn9y8RoK0JLcjjKglnZKQrG0SJ4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzQyYWUyOTBjMDNjNDM5YzJjYWI4MiIsImlhdCI6MTc2NTAyNjU2MCwiZXhwIjoxNzY1MDI3NDYwfQ.et7dEK_kLii5z23mBOOYa0j-URPVGOFfWCJREuxRRsE
 ###
 //logout
-POST http://localhost:3001/api/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MmVmNDg1NDFlMmQ0ZDNjZmJmODhiNCIsImlhdCI6MTc2NDY4NjUzNywiZXhwIjoxNzY3Mjc4NTM3fQ.JU8a5AY6zPMRLwRaIWbHnPgROw9rPDOQs-hs7y3FVWw
+# POST http://localhost:3001/api/auth/logout
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MmVmNDg1NDFlMmQ0ZDNjZmJmODhiNCIsImlhdCI6MTc2NDY4NjUzNywiZXhwIjoxNzY3Mjc4NTM3fQ.JU8a5AY6zPMRLwRaIWbHnPgROw9rPDOQs-hs7y3FVWw
+###
+//delete user
+DELETE http://localhost:3001/api/auth/delete/6933d16e192583064248a0b9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzQxYzdkZDRkOTA2NjIzNzU2MjNlMyIsImlhdCI6MTc2NTAyMjg3MywiZXhwIjoxNzY1MDIzNzczfQ.tKLPea52ZqyopbqG5EC3uQz0bXNoK7A-NQVeB__7rKo
+###
+//update user
+PUT http://localhost:3001/api/auth/update/69342ae290c03c439c2cab82
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzQyYWUyOTBjMDNjNDM5YzJjYWI4MiIsImlhdCI6MTc2NTAyNjYwOCwiZXhwIjoxNzY1MDI3NTA4fQ.iG7GLSxvO_hPNPJKrzjCL7z5AtYFHIXqETnl6ekHL5k
+Content-Type: application/json
+
+{
+  "password": "password123",
+  "name": "vuacuamoinha",
+  "role": "user"
+}

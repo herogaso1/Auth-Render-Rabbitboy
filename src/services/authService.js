@@ -58,7 +58,18 @@ export const logoutUser = async (userId) => {
   await User.findByIdAndUpdate(userId, { refreshToken: null });
   return true;
 };
-
+//delete user
+export const deleteUser = async (userId, role) => {
+  console.log("role: ", role);
+  if (role !== "admin") {
+    //throw new err_code
+    const err = new Error("Forbidden");
+    err.code = "FORBIDDEN";
+    throw err;
+  }
+  await User.findByIdAndDelete(userId);
+  return true;
+};
 export const refreshAccessToken = async (refreshToken) => {
   const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
   const user = await User.findById(decoded.id);
@@ -69,11 +80,30 @@ export const refreshAccessToken = async (refreshToken) => {
 
   return generateAccessToken(user._id);
 };
-
+//update user
+export const updateUser = async (userId, userData) => {
+  const user = await User.findByIdAndUpdate(userId, userData, {
+    new: true,
+  });
+  if (!user) {
+   const err = new Error("User not found");
+    err.code = "USER_NOT_FOUND";
+    throw err;
+  }
+  if (user.role !== "admin") {
+    //throw new err_code
+    const err = new Error("Forbidden");
+    err.code = "FORBIDDEN";
+    throw err;
+  }
+  return user;
+};
 export default {
   registerUser,
   loginUser,
   getMe,
   logoutUser,
+  updateUser,
+  deleteUser,
   refreshAccessToken,
 };

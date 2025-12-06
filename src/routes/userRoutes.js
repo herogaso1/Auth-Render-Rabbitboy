@@ -4,8 +4,10 @@ import {
   loginUser,
   getMe,
   logoutUser,
+  deleteUser,
+  updateUser,
 } from "../controllers/authController.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { protect, authorize } from "../middleware/authMiddleware.js";
 import { refreshToken } from "../controllers/authController.js";
 const router = express.Router();
 
@@ -107,4 +109,32 @@ router.post("/logout", protect, logoutUser);
 
 router.post("/refresh", refreshToken);
 
+// router.delete("/delete/:id", protect, deleteUser);
+// /**
+//  * @swagger
+//  * /api/auth/delete/{id}:
+//  *   delete:
+//  *     summary: Xóa người dùng
+//  *     tags: [Authentication]
+//  *     security:
+//  *       - bearerAuth: []
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         schema:
+//  *           type: string
+//  *         required: true
+//  *         description: ID của người dùng
+//  *     responses:
+//  *       200:
+//  *         description: Xóa người dùng thành công
+//  *       400:
+//  *         description: Người dùng không tồn tại
+//  *       401:
+//  *         description: Chưa xác thực
+//  */
+
+// 🔒 Chỉ có admin mới có quyền xóa
+router.delete("/delete/:id", protect, authorize("admin"), deleteUser);
+router.put("/update/:id", protect, updateUser);
 export default router;

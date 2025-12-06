@@ -37,3 +37,18 @@ export const protect = async (req, res, next) => {
     return error(res, "Bạn chưa đăng nhập", 401, "NOT_AUTHORIZED");
   }
 };
+// Middleware kiểm tra Role
+// Cách dùng: authorize('admin') hoặc authorize('admin', 'manager')
+export const authorize = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return error(
+        res,
+        "Bạn không có quyền thực hiện hành động này",
+        403,
+        "FORBIDDEN"
+      );
+    }
+    next();
+  };
+};

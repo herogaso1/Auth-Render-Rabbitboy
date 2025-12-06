@@ -59,6 +59,7 @@ export const logoutUser = async (req, res) => {
     error(res, err.message, 400);
   }
 };
+//delete
 
 export const refreshToken = async (req, res) => {
   try {
@@ -71,5 +72,37 @@ export const refreshToken = async (req, res) => {
     success(res, "Làm mới token thành công", { accessToken });
   } catch (err) {
     error(res, err.message, 401);
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  try {
+    console.log(req.params.id, req.user.role);
+    await authService.deleteUser(req.params.id, req.user.role);
+    success(res, "Xóa người dùng thành công");
+  } catch (err) {
+    console.log(err);
+    if (err.code === "USER_NOT_FOUND")
+      error(res, "người dùng không tồn tại", 400);
+    else if (err.code === "FORBIDDEN")
+      error(res, "Bạn không có quyền xóa người dùng", 403);
+  }
+};
+export const updateUser = async (req, res) => {
+  try {
+    const updated = await authService.updateUser(
+      req.params.id,
+      req.body.name,
+      req.user.id,
+      req.user.role
+    );
+    success(res, "Cập nhật thành công", updated);
+  } catch (err) {
+    console.log(err);
+    if (err.message === "FORBIDDEN")
+      error(res, "Bạn không có quyền cập nhật", 403);
+    else if (err.message === "USER_NOT_FOUND")
+      error(res, "người dùng không tồn tại", 400);
+    else error(res, "Lỗi server", 500, err.message);
   }
 };
