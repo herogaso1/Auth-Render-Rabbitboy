@@ -1,0 +1,26 @@
+POST http://localhost:3001/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "superdev3@gmail.com",
+  "password": "password123",
+  "name": "superdev"
+}
+
+###
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "superdev3@gmail.com",
+  "password": "password123"
+}
+
+###
+///me
+GET http://localhost:3001/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MmVmNDg1NDFlMmQ0ZDNjZmJmODhiNCIsImlhdCI6MTc2NDY4NjE4OCwiZXhwIjoxNzY3Mjc4MTg4fQ.4c3m6jH7WzEDjXvJTn9y8RoK0JLcjjKglnZKQrG0SJ4
+###
+//logout
+POST http://localhost:3001/api/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MmVmNDg1NDFlMmQ0ZDNjZmJmODhiNCIsImlhdCI6MTc2NDY4NjUzNywiZXhwIjoxNzY3Mjc4NTM3fQ.JU8a5AY6zPMRLwRaIWbHnPgROw9rPDOQs-hs7y3FVWw
