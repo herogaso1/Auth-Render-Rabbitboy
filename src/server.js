@@ -4,7 +4,7 @@ import connectDB from "./config/db.js"; // Nhớ đuôi .js
 import userRoutes from "./routes/userRoutes.js";
 import { swaggerUi, swaggerSpec } from "./swagger.js";
 import cookieParser from "cookie-parser";
-
+import cors from "cors";
 // Load biến môi trường
 dotenv.config();
 
@@ -15,6 +15,13 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser()); // ← THÊM MỚI
 
+// CORS
+app.use(
+  cors({
+    credentials: true, // ← THÊM MỚI
+    origin: process.env.FE_URL, // ← THÊM MỚI
+  })
+);
 // Kết nối Database
 connectDB();
 
