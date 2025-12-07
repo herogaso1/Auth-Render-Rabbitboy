@@ -2,10 +2,10 @@ POST http://localhost:3001/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "test11@gmail.com",
+  "email": "test01@gmail.com",
   "password": "password123",
-  "name": "test9",
-  "role": "user"
+  "name": "test01",
+  "role": "admin"
 }
 
 ###
@@ -20,7 +20,7 @@ Content-Type: application/json
 ###
 ///me
 GET http://localhost:3001/api/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzQyYWUyOTBjMDNjNDM5YzJjYWI4MiIsImlhdCI6MTc2NTAyNjU2MCwiZXhwIjoxNzY1MDI3NDYwfQ.et7dEK_kLii5z23mBOOYa0j-URPVGOFfWCJREuxRRsE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzQyYWUyOTBjMDNjNDM5YzJjYWI4MiIsImlhdCI6MTc2NTEwNzk2NCwiZXhwIjoxNzY1MTA4ODY0fQ.gEYnZt5rjzTiLqWO0-rc_y1dm0WIefui0YoA4ngJ8S0
 ###
 //logout
 # POST http://localhost:3001/api/auth/logout
@@ -31,12 +31,12 @@ DELETE http://localhost:3001/api/auth/delete/6933d16e192583064248a0b9
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzQxYzdkZDRkOTA2NjIzNzU2MjNlMyIsImlhdCI6MTc2NTAyMjg3MywiZXhwIjoxNzY1MDIzNzczfQ.tKLPea52ZqyopbqG5EC3uQz0bXNoK7A-NQVeB__7rKo
 ###
 //update user
-PUT http://localhost:3001/api/auth/update/69342ae290c03c439c2cab82
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzQyYWUyOTBjMDNjNDM5YzJjYWI4MiIsImlhdCI6MTc2NTAyNjYwOCwiZXhwIjoxNzY1MDI3NTA4fQ.iG7GLSxvO_hPNPJKrzjCL7z5AtYFHIXqETnl6ekHL5k
+PUT http://localhost:3001/api/auth/update/693569437e838801b7f62cee
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzU2YjEwN2U4Mzg4MDFiN2Y2MmNmNCIsImlhdCI6MTc2NTEwODQ5NiwiZXhwIjoxNzY1MTA5Mzk2fQ._cPg-JuBAKVqv-y8DXlZ-59BHINJ8U0nMHjlkwNcRns
 Content-Type: application/json
 
 {
   "password": "password123",
-  "name": "vuacuamoinha",
+  "name": "test01_updated",
   "role": "user"
 }

@@ -81,21 +81,30 @@ export const refreshAccessToken = async (refreshToken) => {
   return generateAccessToken(user._id);
 };
 //update user
-export const updateUser = async (userId, userData) => {
-  const user = await User.findByIdAndUpdate(userId, userData, {
-    new: true,
-  });
-  if (!user) {
-   const err = new Error("User not found");
-    err.code = "USER_NOT_FOUND";
-    throw err;
-  }
-  if (user.role !== "admin") {
-    //throw new err_code
+export const updateUser = async (
+  userId,
+  userData,
+  currentUserId,
+  currentUserRole
+) => {
+  // Kiểm tra quyền TRƯỚC khi update
+  // Chỉ admin hoặc chính user đó mới có quyền update
+  if (currentUserRole !== "admin" && currentUserId !== userId) {
     const err = new Error("Forbidden");
     err.code = "FORBIDDEN";
     throw err;
   }
+
+  const user = await User.findByIdAndUpdate(userId, userData, {
+    new: true,
+  }).select("-password -refreshToken");
+
+  if (!user) {
+    const err = new Error("User not found");
+    err.code = "USER_NOT_FOUND";
+    throw err;
+  }
+
   return user;
 };
 export default {

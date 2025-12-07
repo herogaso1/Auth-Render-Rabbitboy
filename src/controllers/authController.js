@@ -92,17 +92,17 @@ export const updateUser = async (req, res) => {
   try {
     const updated = await authService.updateUser(
       req.params.id,
-      req.body.name,
-      req.user.id,
+      req.body,
+      req.user._id.toString(),
       req.user.role
     );
     success(res, "Cập nhật thành công", updated);
   } catch (err) {
     console.log(err);
-    if (err.message === "FORBIDDEN")
-      error(res, "Bạn không có quyền cập nhật", 403);
-    else if (err.message === "USER_NOT_FOUND")
-      error(res, "người dùng không tồn tại", 400);
+    if (err.code === "FORBIDDEN")
+      error(res, "Bạn không có quyền cập nhật người dùng này", 403);
+    else if (err.code === "USER_NOT_FOUND")
+      error(res, "Người dùng không tồn tại", 404);
     else error(res, "Lỗi server", 500, err.message);
   }
 };
