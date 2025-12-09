@@ -6,10 +6,13 @@ export const create = async (req, res) => {
     // req.user._id lấy từ Token
     const newProject = await projectService.createProject(
       req.body,
-      req.user._id.toString()
+      req.user._id.toString(),
+      req.user.role
     );
     return success(res, "Tạo dự án thành công", newProject, 201);
   } catch (err) {
+    if (err.code === "FORBIDDEN")
+      return error(res, "Chỉ Admin mới được tạo dự án", 403);
     return error(res, err.message, 500);
   }
 };
@@ -58,6 +61,44 @@ export const getAll = async (req, res) => {
     );
     return success(res, "Lấy danh sách thành công", projects);
   } catch (err) {
+    return error(res, "Lỗi server", 500);
+  }
+};
+
+// Assign users vào project (CHỈ ADMIN)
+export const assignUsers = async (req, res) => {
+  try {
+    const { userIds } = req.body; // Array of user IDs
+    const updated = await projectService.assignUsersToProject(
+      req.params.id,
+      userIds,
+      req.user.role
+    );
+    return success(res, "Assign users thành công", updated);
+  } catch (err) {
+    if (err.code === "FORBIDDEN")
+      return error(res, "Chỉ Admin mới có quyền assign users", 403);
+    if (err.message === "PROJECT_NOT_FOUND")
+      return error(res, "Không tìm thấy dự án", 404);
+    return error(res, "Lỗi server", 500);
+  }
+};
+
+// Unassign user khỏi project (CHỈ ADMIN)
+export const unassignUser = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const updated = await projectService.unassignUserFromProject(
+      req.params.id,
+      userId,
+      req.user.role
+    );
+    return success(res, "Unassign user thành công", updated);
+  } catch (err) {
+    if (err.code === "FORBIDDEN")
+      return error(res, "Chỉ Admin mới có quyền unassign users", 403);
+    if (err.message === "PROJECT_NOT_FOUND")
+      return error(res, "Không tìm thấy dự án", 404);
     return error(res, "Lỗi server", 500);
   }
 };
