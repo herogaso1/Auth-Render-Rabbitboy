@@ -1,14 +1,34 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const projectSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String },
-  // ... các field khác
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  }
-}, { timestamps: true });
+const projectSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    description: {
+      type: String,
+      default: "",
+    },
+    status: {
+      type: String,
+      enum: ["pending", "in-progress", "completed", "cancelled"],
+      default: "pending",
+    },
+    progress: {
+      type: Number,
+      min: 0,
+      max: 100,
+      default: 0,
+    },
+    owner_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model('Project', projectSchema);
+export default mongoose.model("Project", projectSchema);
